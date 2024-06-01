@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 
 function Games() {
   const [games, setGames] = useState([]);
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(2002);
   const years = [
-    2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010,
+    2002, 2003, 2004, 2005, 2006
   ];
 
   useEffect(() => {
@@ -24,13 +24,9 @@ function Games() {
       alert("There is a problem come back later");
     }
   };
-
-  function handleSelect(event) {
-    setValue(event.target.value);
-  }
   return (
     <>
-      <select className="form-select" onChange={handleSelect}>
+      <select className="form-select" onChange={e => setValue(parseInt(e.target.value))}>
         {years.map((year) => (
           <option key={year} value={year}>
             {year}
@@ -38,18 +34,19 @@ function Games() {
         ))}
       </select>
       <div>
-      {games
-        .filter((game) => game.Year === value)
-        .map((item) => {
-          return (
+        {games
+          .filter((game) => game.Year === value)
+          .map((item) => {
+            return (
               <ul className="list-group">
                 <li className="list-group-item" key={item.Game}>
                   Game name: {item.Game} <br />
-                  Publisher: {item.Publisher}
+                  Publisher: {item.Publisher} <br />
+                  publish year: {item.Year}
                 </li>
               </ul>
-          );
-        })}
+            );
+          })}
       </div>
     </>
   );
